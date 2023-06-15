@@ -1,13 +1,22 @@
 import App from "../App";
 import About from "../components/about/About";
 import ErrorPage from "../components/error/ErrorPage";
+import Home from '../components/home/Home';
 import Login from "../components/login/Login";
 import Registration from "../components/registration/Registration";
-export default [
+
+const routes = [
     {
         path: "/",
         element: <App />,
         errorElement: <ErrorPage />,
+        children: [
+            { index: true, element: <Home /> },
+            {
+                path: "about",
+                element: <About />
+            },
+        ]
 
     },
 
@@ -22,10 +31,8 @@ export default [
         element: <Registration />
 
     },
-    {
-        path: "/about",
-        element: <About/>
 
-    },
 ]
+
+export default routes;
 

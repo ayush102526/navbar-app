@@ -1,16 +1,17 @@
 import React from 'react';
+import { Outlet } from "react-router-dom";
 import Navbar from './components/navbar';
 import Footer from './components/Footer';
 
+import './App.css';
 
 const App = () => {
   return (
-    <div>
+    <div className='app-container'>
       <Navbar />
-      <img src="/Banner 4 (1).png" alt="Full-size Photo" style={{ width: '100%' }} />
-      <h1>Welcome to Socialize Up</h1>
-      {/* Add more content or components */}
-      
+      <div className='main-container'>
+        <Outlet />
+      </div>
       <Footer /> {/* Render the Footer component */}
     </div>
   );

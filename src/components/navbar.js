@@ -23,17 +23,28 @@ const Navbar = () => {
           </a>
         </li>
         <li>
-          <a href="#">Home</a>
+          <NavLink
+            to={'/'}
+            className={({ isActive, isPending }) =>
+              isActive
+                ? 'active'
+                : isPending
+                  ? 'pending'
+                  : ''
+            }
+          >
+            Home
+          </NavLink>
         </li>
         <li>
-          <NavLink 
+          <NavLink
             to={'/about'}
             className={({ isActive, isPending }) =>
               isActive
                 ? 'active'
                 : isPending
-                ? 'pending'
-                : ''
+                  ? 'pending'
+                  : ''
             }
           >
             About
@@ -52,8 +63,8 @@ const Navbar = () => {
               isActive
                 ? 'active'
                 : isPending
-                ? 'pending'
-                : ''
+                  ? 'pending'
+                  : ''
             }
           >
             Login
