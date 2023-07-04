@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import {NavLink} from 'react-router-dom';
+import axios from 'axios';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Registration.css';
 
 const Registration = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-   
 
+    const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -18,6 +19,20 @@ const Registration = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        axios.post("http://localhost:5000/api/auth/register", {
+            email, password
+        })
+            .then((res) => {
+                if (res?.data) {
+                    navigate("/login");
+                    setEmail("");
+                    setPassword("");
+                }
+            })
+            .catch((err) => {
+                sessionStorage.clear();
+                console.log({ err })
+            })
 
     };
 

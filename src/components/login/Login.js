@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import {NavLink} from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Login.css';
+import axios from 'axios';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -16,7 +19,22 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+    axios.post("http://localhost:5000/api/auth/login", {
+      username: email, password
+    })
+      .then((res) => {
+        if (res?.data) {
+          sessionStorage.setItem("user", JSON.stringify(res.data));
+          navigate("/");
+          setEmail("");
+          setPassword("");
+        }
+      })
+      .catch((err) => {
+        sessionStorage.clear();
+        console.log({ err })
+      })
+
   };
 
   return (
@@ -44,10 +62,10 @@ const Login = () => {
         <button type="submit">Sign In</button>
         <p className="signup-link">
           Don't have an account? <NavLink
-                        to={'/registration'}
-                    >
-                        Sign Up
-                    </NavLink>
+            to={'/registration'}
+          >
+            Sign Up
+          </NavLink>
         </p>
       </form>
     </div>
